@@ -31,7 +31,12 @@ services.AddMassTransit(massTransit =>
     {
         config.UseSqlServer();
         // config.QueryDelay = TimeSpan.FromSeconds(1);
-        config.UseBusOutbox();
+       // Comment below line, then published events are received, but that defeats the whole purpose
+        config.UseBusOutbox(x =>
+        {
+            //It should work with this
+            //x.DisableDeliveryService();
+        });
     });
     massTransit.UsingDb((context, cfg) =>
     {
